@@ -14,7 +14,7 @@ public class Guerreiro extends Personagem implements Atacante{
 
     public Guerreiro(String nome, int nivel, int vida, int forca) {
         super(nome, nivel, vida);
-        this.forca = forca;
+        setForca(forca);
     }
 
     public int getForca() {
@@ -22,6 +22,9 @@ public class Guerreiro extends Personagem implements Atacante{
     }
 
     public void setForca(int forca) {
+        if (forca < 0) {
+            System.out.println("Forca nao pode ser negativa.");
+        }
         this.forca = forca;
     }
     

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.sysrpg;
 
 import java.util.ArrayList;
@@ -20,7 +17,8 @@ public class Jogador {
     
     public Jogador(String nome) {
         this.id = count.incrementAndGet();
-        this.nome = nome;
+        setNome(nome);
+        this.personagens = new ArrayList<>();
     }
 
     public int getId() {
@@ -32,14 +30,19 @@ public class Jogador {
     }
 
     public void setNome(String nome) {
+        validarTexto(nome, "Nome");
         this.nome = nome;
     }
     
     public void adicionarPersonagem(Personagem personagem){
+        if (personagem == null) {
+            System.out.println("Personagem nao pode ser nulo.");
+        }
         personagens.add(personagem);
     }
     
     public Personagem buscarPersonagem(int id){
+        validarId(id);
         for(Personagem personagem : personagens){
             if(personagem.getId() == id) return personagem;
             
@@ -51,10 +54,11 @@ public class Jogador {
     }
     
     public ArrayList<Personagem> listarPersonagens(){
-        return personagens;
+        return new ArrayList<>(personagens);
     }
     
     public boolean removerPersonagem(int id){
+        validarId(id);
         for(Personagem personagem : personagens){
             if(personagem.getId() == id){
                 personagens.remove(personagem);
@@ -65,5 +69,17 @@ public class Jogador {
         
         System.out.println("Não existe personagem com esse ID registrado a este jogador!");
         return false;
+    }
+
+    private void validarTexto(String valor, String campo) {
+        if (valor == null || valor.isBlank()) {
+            System.out.println(campo + " nao pode ser vazio.");
+        }
+    }
+
+    private void validarId(int id) {
+        if (id <= 0) {
+            System.out.println("ID deve ser maior que zero.");
+        }
     }
 }

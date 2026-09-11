@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.sysrpg;
 
 /**
@@ -13,7 +10,7 @@ public class Mago extends Personagem implements Atacante{
 
     public Mago(String nome, int nivel, int vida, int inteligencia) {
         super(nome, nivel, vida);
-        this.inteligencia = inteligencia;
+        setInteligencia(inteligencia);
     }
 
     public int getInteligencia() {
@@ -21,6 +18,9 @@ public class Mago extends Personagem implements Atacante{
     }
 
     public void setInteligencia(int inteligencia) {
+        if (inteligencia < 0) {
+            System.out.println("Inteligencia nao pode ser negativa.");
+        }
         this.inteligencia = inteligencia;
     }
     

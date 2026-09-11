@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.sysrpg;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,8 +15,8 @@ public class Item {
 
     public Item(String nome, String tipo) {
         this.id = count.incrementAndGet();
-        this.nome = nome;
-        this.tipo = tipo;
+        setNome(nome);
+        setTipo(tipo);
     }
 
     public int getId() {
@@ -31,6 +28,7 @@ public class Item {
     }
 
     public void setNome(String nome) {
+        validarTexto(nome, "Nome");
         this.nome = nome;
     }
 
@@ -39,8 +37,14 @@ public class Item {
     }
 
     public void setTipo(String tipo) {
+        validarTexto(tipo, "Tipo");
         this.tipo = tipo;
     }
     
+    private void validarTexto(String valor, String campo) {
+        if (valor == null || valor.isBlank()) {
+            System.out.println(campo + " nao pode ser vazio.");
+        }
+    }
     
 }

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.sysrpg;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,7 +14,7 @@ public class Mestre {
 
     public Mestre(String nome) {
         this.id = count.incrementAndGet();
-        this.nome = nome;
+        setNome(nome);
     }
 
     public int getId() {
@@ -29,12 +26,18 @@ public class Mestre {
     }
 
     public void setNome(String nome) {
+        validarTexto(nome, "Nome");
         this.nome = nome;
     }
     
-    
-    
-    
-    
-    public String narrar(String mensagem){return ("O mestre narra: " + mensagem);}
+    public String narrar(String mensagem){
+        validarTexto(mensagem, "Mensagem");
+        return ("O mestre narra: " + mensagem);
+    }
+
+    private void validarTexto(String valor, String campo) {
+        if (valor == null || valor.isBlank()) {
+            System.out.println(campo + " nao pode ser vazio.");
+        }
+    }
 }

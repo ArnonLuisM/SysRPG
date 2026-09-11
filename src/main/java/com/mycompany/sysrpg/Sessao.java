@@ -19,8 +19,8 @@ public class Sessao {
 
     public Sessao(Date data, String descricao) {
         this.id = count.incrementAndGet();
-        this.data = data;
-        this.descricao = descricao;      
+        setData(data);
+        setDescricao(descricao);
     }
 
     public int getId() {
@@ -28,11 +28,14 @@ public class Sessao {
     }
 
     public Date getData() {
-        return data;
+        return new Date(data.getTime());
     }
 
     public void setData(Date data) {
-        this.data = data;
+        if (data == null) {
+            System.out.println("Data nao pode ser vazia.");
+        }
+        this.data = new Date(data.getTime());
     }
 
     public String getDescricao() {
@@ -40,10 +43,15 @@ public class Sessao {
     }
 
     public void setDescricao(String descricao) {
+        validarTexto(descricao, "Descricao");
         this.descricao = descricao;
     }
     
+    private void validarTexto(String valor, String campo) {
+        if (valor == null || valor.isBlank()) {
+            System.out.println(campo + " nao pode ser vazio.");
+        }
+    }
     
 }
     
-

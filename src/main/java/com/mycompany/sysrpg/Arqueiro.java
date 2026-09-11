@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.sysrpg;
 
 /**
@@ -13,7 +10,7 @@ public class Arqueiro extends Personagem implements Atacante{
 
     public Arqueiro(int precisao, String nome, int nivel, int vida) {
         super(nome, nivel, vida);
-        this.precisao = precisao;
+        setPrecisao(precisao);
     }
 
     public int getPrecisao() {
@@ -21,6 +18,9 @@ public class Arqueiro extends Personagem implements Atacante{
     }
 
     public void setPrecisao(int precisao) {
+        if (precisao < 0) {
+            System.out.println("Precisao nao pode ser negativa.");
+        }
         this.precisao = precisao;
     }
     

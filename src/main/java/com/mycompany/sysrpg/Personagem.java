@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.sysrpg;
 
 import java.util.ArrayList;
@@ -22,9 +19,10 @@ public class Personagem{
 
     public Personagem(String nome, int nivel, int vida) {
         this.id = count.incrementAndGet();
-        this.nome = nome;
-        this.nivel = nivel;
-        this.vida = vida;
+        setNome(nome);
+        setNivel(nivel);
+        setVida(vida);
+        this.itens = new ArrayList<>();
     }
 
     public int getId() {
@@ -36,6 +34,7 @@ public class Personagem{
     }
 
     public void setNome(String nome) {
+        validarTexto(nome, "Nome");
         this.nome = nome;
     }
 
@@ -44,6 +43,9 @@ public class Personagem{
     }
 
     public void setNivel(int nivel) {
+        if (nivel <= 0) {
+            System.out.println("Nivel deve ser maior que zero.");
+        }
         this.nivel = nivel;
     }
 
@@ -51,8 +53,18 @@ public class Personagem{
         return vida;
     }
 
+    public void setVida(int vida) {
+        if (vida < 0) {
+            System.out.println("Vida nao pode ser negativa.");
+        }
+        this.vida = vida;
+    }
+
     public void receberDano(int dano){
-        vida = (vida - dano);
+        if (dano <= 0) {
+            System.out.println("Dano deve ser maior que zero.");
+        }
+        vida = Math.max(0, vida - dano);
         
         System.out.println(this.getNome() + " sofreu " + dano + " de dano!");
         
@@ -62,16 +74,23 @@ public class Personagem{
     }
     
     public void curar(int valor){
+        if (valor <= 0) {
+            System.out.println("Valor de cura deve ser maior que zero.");
+        }
         vida = (vida + valor);
         
         System.out.println(this.getNome() + " curou " + valor + " de HP!");
     }
     
     public void adicionarItem(Item item){
+        if (item == null) {
+            System.out.println("Item nao pode ser nulo.");
+        }
         itens.add(item);
     }
     
     public Item buscarItem(int id){
+        validarId(id);
         for(Item item : itens){
             if(item.getId() == id) return item;
             
@@ -83,10 +102,11 @@ public class Personagem{
     }
     
     public ArrayList<Item> listaritens(){
-        return itens;
+        return new ArrayList<>(itens);
     }
     
     public boolean removerItem(int id){
+        validarId(id);
         for(Item item : itens){
             if(item.getId() == id){
                 itens.remove(item);
@@ -101,6 +121,12 @@ public class Personagem{
     
     
     public void definirMentor(Personagem mentor){
+        if (mentor == null) {
+            System.out.println("Mentor nao pode ser nulo.");
+        }
+        if (mentor == this) {
+            System.out.println("Personagem nao pode ser mentor de si mesmo.");
+        }
         this.mentor = mentor;
         System.out.println(mentor + " agora mentora " + this.getNome());
     }
@@ -109,7 +135,18 @@ public class Personagem{
         return mentor;
     }
 
+
    
-    
-    
+    private void validarTexto(String valor, String campo) {
+        if (valor == null || valor.isBlank()) {
+            System.out.println(campo + " nao pode ser vazio.");
+        }
+    }
+
+    private void validarId(int id) {
+        if (id <= 0) {
+            System.out.printlnn("ID deve ser maior que zero.");
+        }
+    }
+
 }
